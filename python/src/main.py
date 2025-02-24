@@ -1,4 +1,3 @@
-
 from ripple_carry_adder import RippleCarryAdder
 from static import Static
 
@@ -31,11 +30,11 @@ if __name__ == "__main__":
     print(f"{b} in binary is: {b_bin_str}")
 
     n_inputs = max(len(a_bits), len(b_bits))
-    a_ins = [[Static(i)] for i in a_bits]
-    b_ins = [[Static(i)] for i in b_bits]
+    a_ins = [[Static(i)] for i in list(reversed(a_bits))]
+    b_ins = [[Static(i)] for i in list(reversed(b_bits))]
 
     rca = RippleCarryAdder(n_inputs=n_inputs, a_ins=a_ins, b_ins=b_ins, cin=[Static(0)])
-    rca_s = rca.get_state()
+    rca_s = [rca.get_cout()] + list(reversed(rca.get_state()))
 
     c_bin_str = ''.join([str(s) for s in rca_s])
 
